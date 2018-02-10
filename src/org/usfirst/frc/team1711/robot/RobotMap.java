@@ -26,6 +26,9 @@ public class RobotMap
 	
 	public static Joystick driveStick;
 	
+	//move this where ever you want to i don't really care
+	public static double driveStickDeadzone = 0.25;
+	
 	public void init()
 	{
 		driveStick = new Joystick(0);

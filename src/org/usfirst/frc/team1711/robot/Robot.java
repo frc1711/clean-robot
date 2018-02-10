@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team1711.robot;
 
+import org.usfirst.frc.team1711.robot.commands.JoystickDrive;
+import org.usfirst.frc.team1711.robot.commands.OrthoSwitchDrive;
 import org.usfirst.frc.team1711.robot.subsystems.DriveSystem;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -31,6 +33,7 @@ public class Robot extends IterativeRobot
 
 	public static RobotMap robotMap;
 	public static DriveSystem driveSystem;
+	public static Command teleopDrive;
 	public static OI oi;
 
 	/**
@@ -43,6 +46,7 @@ public class Robot extends IterativeRobot
 		robotMap = new RobotMap();
 		robotMap.init();
 		driveSystem = new DriveSystem();
+		teleopDrive = new OrthoSwitchDrive();
 		oi = new OI(); //this needs to be last or else we will get BIG ERROR PROBLEM
 
 	}
@@ -79,6 +83,7 @@ public class Robot extends IterativeRobot
 	@Override
 	public void teleopInit() 
 	{
+		teleopDrive.start();
 	}
 
 	/**
@@ -87,6 +92,7 @@ public class Robot extends IterativeRobot
 	@Override
 	public void teleopPeriodic() 
 	{
+		driveSystem.printOutput(2);
 		Scheduler.getInstance().run();
 	}
 

@@ -18,13 +18,23 @@ public class JoystickDrive extends Command {
     // Called just before this Command runs the first time
     protected void initialize() 
     {
-    	
+    	//Robot.driveSystem.polarDrive(0, 0, 0);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() 
     {
-    	Robot.driveSystem.arcadeDriving(RobotMap.driveStick.getRawAxis(1), RobotMap.driveStick.getRawAxis(0));
+    	if(RobotMap.driveStick.getMagnitude() > RobotMap.driveStickDeadzone || Math.abs(RobotMap.driveStick.getRawAxis(4)) > RobotMap.driveStickDeadzone) {
+    		
+    		Robot.driveSystem.driveCartesian(-RobotMap.driveStick.getRawAxis(1), RobotMap.driveStick.getRawAxis(0), RobotMap.driveStick.getRawAxis(4));
+    		//Robot.driveSystem.polarDrive(RobotMap.driveStick.getDirectionRadians(), RobotMap.driveStick.getMagnitude(), RobotMap.driveStick.getRawAxis(4));
+    		
+    	} else {
+    		
+    		Robot.driveSystem.polarDrive(0, 0, 0);
+    		
+    	}
+    		
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -36,11 +46,13 @@ public class JoystickDrive extends Command {
     // Called once after isFinished returns true
     protected void end() 
     {
+    	Robot.driveSystem.polarDrive(0, 0, 0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() 
     {
+    	Robot.driveSystem.polarDrive(0, 0, 0);
     }
 }
